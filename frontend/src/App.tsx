@@ -19,7 +19,12 @@ interface DashboardData {
     latest_steps: number | null;
     latest_resting_hr: number | null;
     latest_hrv_rmssd: number | null;
+    bci?: {
+      bci_score: number;
+      interpretation: string;
+    } | null;
   };
+  
   ehr_records: {
     profile: Record<string, string | number>;
     medications: Array<Record<string, string | number>>;
@@ -382,9 +387,16 @@ function App() {
                   <div>
                     <h2>Latest Telemetry State</h2>
                     <p>Current wearable metrics</p>
+                    
                   </div>
                   <Activity size={22} />
                 </div>
+                <div className="deviation-item">
+  <span>BCI (Circadian Index)</span>
+  <strong style={{ color: (twin.bci?.bci_score ?? 0) < 0.7 ? "#e6a23c" : "#16a085" }}>
+    {twin.bci?.bci_score ?? "N/A"} ({twin.bci?.interpretation ?? ""})
+  </strong>
+</div>
                 <div className="deviation-grid" style={{ marginTop: "1.5rem" }}>
                   <div className="deviation-item">
                     <span>Last Sync</span>
@@ -579,14 +591,7 @@ function App() {
                   Validation: {future.validation_status}
                 </div>
 
-                <div className="notice">
-                  <AlertTriangle size={19} />
-                  <p>
-                    This is an experimental estimate for the dataset's recorded
-                    target. Its clinical meaning and predictive reliability have
-                    not been established.
-                  </p>
-                </div>
+                
               </div>
             </section>
           </>
