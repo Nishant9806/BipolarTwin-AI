@@ -27,6 +27,6 @@ Thumbs.db
 
 # Local datasets and health-related data
 Dataset/
-
+dataset/
 # Local generated outputs
 outputs/
