@@ -1,3 +1,4 @@
+import pandas as pd
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -7,6 +8,9 @@ from run_bipolartwin import (
 )
 from digital_twin import DigitalTwin
 
+# Fix: Import features once at startup rather than dynamically on every request
+from mood_classifier import FEATURES as MOOD_FEATURES
+from mood_forecaster import FEATURES as FORECAST_FEATURES
 
 app = FastAPI(
     title="BipolarTwin AI",
@@ -47,48 +51,42 @@ def get_patient_state(patient_id: str):
         latest = twin.history.iloc[[-1]]
 
         mood_probabilities = mood_model.predict_proba(
-            latest[
-                __import__("mood_classifier").FEATURES
-            ]
+            latest[MOOD_FEATURES]
         )[0]
 
-        mood_classes = mood_model.named_steps[
-            "classifier"
-        ].classes_
+        mood_classes = mood_model.named_steps["classifier"].classes_
 
         mood_output = {
             label: round(float(probability), 4)
-            for label, probability in zip(
-                mood_classes,
-                mood_probabilities,
-            )
+            for label, probability in zip(mood_classes, mood_probabilities)
         }
 
-        forecast_features = __import__(
-            "mood_forecaster"
-        ).FEATURES
-
         relapse_probability = forecast_model.predict_proba(
-            latest[forecast_features]
+            latest[FORECAST_FEATURES]
         )[0, 1]
+
+        # Extract and format EHR records, replacing pandas NaNs with empty strings for JSON compatibility
+        profile_clean = {k: ("" if pd.isna(v) else v) for k, v in twin.profile.items()}
+        meds_data = twin.medications.fillna("").to_dict(orient="records")
+        labs_data = twin.labs.fillna("").to_dict(orient="records")
 
         return {
             "patient_id": patient_id,
             "digital_twin": twin.update_state(),
+            "ehr_records": {
+                "profile": profile_clean,
+                "medications": meds_data,
+                "labs": labs_data
+            },
             "personal_baseline": twin.calculate_baseline(),
             "baseline_deviations": twin.calculate_deviations(),
             "current_mood": {
-                "predicted_class": max(
-                    mood_output,
-                    key=mood_output.get,
-                ),
+                "predicted_class": max(mood_output, key=mood_output.get),
                 "probabilities": mood_output,
             },
             "future_outcome": {
                 "target": "relapse_7d",
-                "estimated_probability": round(
-                    float(relapse_probability), 4
-                ),
+                "estimated_probability": round(float(relapse_probability), 4),
                 "validation_status": "experimental",
             },
             "limitations": [

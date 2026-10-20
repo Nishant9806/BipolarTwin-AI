@@ -64,7 +64,9 @@ def train_mood_model():
 def train_forecast_model():
     df = pd.read_csv(DATA_DIR / "daily_data.csv")
     df["date"] = pd.to_datetime(df["date"])
-    df = df.sort_values("date").dropna(subset=[FORECAST_TARGET])
+    
+    # FIX 1: Change the target to "relapse_7d"
+    df = df.sort_values("date").dropna(subset=["relapse_7d"])
 
     model = make_pipeline(
         SimpleImputer(strategy="median"),
@@ -77,7 +79,7 @@ def train_forecast_model():
 
     model.fit(
         df[FORECAST_FEATURES],
-        df[FORECAST_TARGET].astype(int),
+        df["relapse_7d"].astype(int),
     )
 
     return model
