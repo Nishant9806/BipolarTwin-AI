@@ -12,7 +12,7 @@ The project combines a Python-based digital twin engine, machine-learning models
 
 ## Team & Institution Details
 * **Team Name:** CycloSync
-* **Team Leader:** Jiya Rai Singhania
+* **Team Leader:** Jiya Rai Singhani
 * **Other Members:** Nishant Srivastava, Radhika Grover
 * **Institution / College:** Pranveer Singh Institute of Technology (PSIT), Kanpur
 * **Team Leader Phone No:** +91 79053 92870
