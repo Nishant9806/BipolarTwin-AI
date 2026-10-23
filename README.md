@@ -26,42 +26,11 @@ The project is a proof of concept, not evidence that digital-twin predictions ca
 
 ---
 
-## 2. System Architecture
+## 2. System Architecture & Project Structure
 
-```text
-        PATIENT PROFILE
-              |
-      HISTORICAL RECORDS
-              |
-       DAILY OBSERVATIONS
-              |
-              v
-      DIGITAL TWIN ENGINE
-              |
-       +------+------+
-       |             |
-       v             v
- PERSONAL BASELINE  DATA QUALITY
-       |
-       v
- CURRENT MOOD CLASSIFIER
-   Logistic Regression
-       |
-       v
- SEVEN-DAY MOOD FORECAST
- Experimental model
-       |
-       v
-    FASTAPI BACKEND
-       |
-       v
-    REACT DASHBOARD
-```
+The project combines a Python-based digital twin engine, machine-learning models, a FastAPI backend, and a React dashboard. 
 
-The current implementation contains a Digital Twin engine, a current mood classifier, an experimental forecasting script, a FastAPI backend, and a React frontend.
-
-**Implementation note:** The standalone seven-day, three-class forecasting experiment is not yet integrated into the API. The API currently returns an experimental binary `relapse_7d` estimate. These outputs must not be confused.
-
+*Please refer to the **[System Architecture Diagram (PDF)](./docs/Architecture_Diagram.pdf)** in the `docs/` folder for a detailed visual data flow.*
 ---
 
 ## 3. Key Features
@@ -408,15 +377,15 @@ The project has not undergone clinical validation.
 
 ---
 
-## 12. Competition
+## 12. Demo Video & Deliverable Links
+* 🎥 **15–20 Minute Prototype Demonstration (YouTube Unlisted):** [Watch Demo Video](https://youtu.be/u-laPTCn4GE)
+* 📊 **Project Presentation (PDF):** [View Presentation Slide Deck](./docs/BipolarTwin_Presentation.pdf)
+* 📐 **System Architecture Diagram (PDF):** [View Architecture Flow Diagram](./docs/Architecture_Diagram.pdf)
+* 🌐 **Public GitHub Repository:** [https://github.com/Nishant9806/BipolarTwin-AI](https://github.com/Nishant9806/BipolarTwin-AI)
 
-**Digital Twin Challenge 2026 — Happiest Health**
+*(All files and external links are configured for public access without restricted organizational permissions).*
 
-Project: BipolarTwin AI
-
-Repository: https://github.com/Nishant9806/BipolarTwin-AI
-
-This repository documents a research prototype and its current limitations. Competition participation does not imply endorsement or clinical validation.
+---
 
 ---
 
