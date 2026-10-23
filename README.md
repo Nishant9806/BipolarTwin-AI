@@ -8,6 +8,21 @@ The project combines a Python-based digital twin engine, machine-learning models
 > **Research disclaimer:** BipolarTwin AI is an experimental proof of concept. It is not a clinically validated diagnostic, monitoring, or treatment system. Predictions must not be used for medical decisions.
 
 ---
+---
+
+## Team & Institution Details
+* **Team Name:** CycloSync
+* **Team Leader:** Jiya Rai Singhania
+* **Other Members:** Nishant Srivastava, Radhika Grover
+* **Institution / College:** Pranveer Singh Institute of Technology (PSIT), Kanpur
+* **Team Leader Phone No:** +91 79053 92870
+* **Team Leader's E-mail:** raisinghanijiya22@gmail.com
+## Healthcare Use Case
+* **Passive Continuous Monitoring:** Ingesting non-invasive biometric signals (sleep duration, resting heart rate, HRV, daily step volume).
+* **Clinical EHR Contextualization:** Co-referencing wearable biometrics with current psychotropic pharmacotherapy and metabolic/toxicity laboratory markers.
+* **Proactive Clinical Triage:** Estimating current mood states and forecasting 7-day episode risks to alert care teams prior to full symptomatic decompensation.
+
+---
 
 ## 1. Problem Statement
 
@@ -391,4 +406,4 @@ The project has not undergone clinical validation.
 
 ## 13. License
 
-The repository license will be specified after the project owner selects an appropriate open-source license and verifies the licensing status of the project's code and dependencies.
+This project is licensed under the MIT License.
